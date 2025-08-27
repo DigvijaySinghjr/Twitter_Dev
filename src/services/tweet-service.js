@@ -1,23 +1,23 @@
-const { TweetRepository, HashtagRepository }  = require('../repository/index');
+import { TweetRepository, HashtagRepository } from '../repository/index.js'
 
 class TweetService {
     constructor() {
         this.tweetRepository = new TweetRepository();
         this.hashtagRepository = new HashtagRepository();
     }
-    
+
     async create(data) {
         const content = data.content;
-        const tags = content.match(/#\w+/g).map((tag) => tag.substring(1));   //this regex extracts hashtags
+        const tags = content.match(/#[a-zA-Z0-9_]+/g).map((tag) => tag.substring(1)); // this regex extracts hashtags
         const tweet = await this.tweetRepository.create(data);
         let alreadyPresentTags = await this.hashtagRepository.findByName(tags);
-        let titleOfPresentTags =  alreadyPresentTags.map(tags => tags.title);
-        let newTags = tags.filter(tag => !titleOfPresentTags.includes(tag));
+        let titleOfPresenttags = alreadyPresentTags.map(tags => tags.title);
+        let newTags = tags.filter(tag => !titleOfPresenttags.includes(tag));
         newTags = newTags.map(tag => {
             return {title: tag, tweets: [tweet.id]}
         });
-        await this.hashtagRepository.bulkcreate(newTags);
-        alreadyPresentTags.forEach((tag) =>{
+        await this.hashtagRepository.bulkCreate(newTags);
+        alreadyPresentTags.forEach((tag) => {
             tag.tweets.push(tweet.id);
             tag.save();
         });
@@ -25,9 +25,8 @@ class TweetService {
     }
 }
 
-module.exports = TweetService;
-
+export default TweetService;
 
 /*
-this is my #first #tweet . I am really #excited
+    this is my #first #tweet . I am really #excited
 */

@@ -1,4 +1,4 @@
-class CreudRepository {
+class CrudRepository {
     constructor(model) {
         this.model = model;
     }
@@ -26,14 +26,14 @@ class CreudRepository {
     async get(id) {
         try {
             const result = await this.model.findById(id);
-            return rsesult;
+            return result;
         } catch (error) {
             console.log('Something went wring in crud repo');
             throw error;
         }
     }
 
-    async getAll(id){
+    async getAll(){
         try {
             const result = await this.model.find({});
             return result;
@@ -55,4 +55,4 @@ class CreudRepository {
     
 }
 
-export default CreudRepository;
+export default CrudRepository;

@@ -12,7 +12,7 @@ const likeSchema = new mongoose.Schema({
         refPath: 'onModel'
     },
     user: {
-        tyoe: mongoose.Schema>Types>ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true,
     }

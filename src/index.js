@@ -12,8 +12,8 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-app.use(passport.initialize());
-passportAuth(passport);
+app.use(passport.initialize());           // plug Passport into Express
+passportAuth(passport);                  
 
 app.use('/api', apiRoutes);
 

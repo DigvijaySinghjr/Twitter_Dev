@@ -21,3 +21,21 @@
 - User auth
 
 - Every tweet might be having a hashtag
+
+---
+
+ **"Project Features"** 
+
+---
+
+## Authentication Overview
+
+here implements authentication using Passport, specifically the `passport-jwt` strategy. User passwords are securely hashed with `bcrypt` before being stored in the database.
+
+**Authentication Flow:**
+- Passport is set up and initialized as middleware in the application (see `index.js`).
+- During sign-in:
+    1. The system checks if the user exists in the database.
+    2. If the user exists, the provided password is compared to the stored hash using the `comparePassword` method (which uses bcrypt).
+    3. If the password matches, a JWT token is generated using the `genJWT()` method (which uses the `jsonwebtoken` package) and returned to the client.
+
